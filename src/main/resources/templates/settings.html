@@ -1,0 +1,118 @@
+<html  xmlns:th="http://thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+    <!-- jQuery and JS bundle w/ Popper.js -->
+    <script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
+    <script th:src="@{/webjars/popper.js/1.12.9-1/umd/popper.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js}"></script>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <title>Settings</title>
+    <style>
+        .card {
+            box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+            transition: box-shadow 0.3s ease-in-out;
+        }
+        .card:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary px-5">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Voting System</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Profile</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Statistics</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Settings</a>
+            </li>
+          </ul>
+          <div class="d-flex align-items-center my-2">
+              <button class="btn btn-outline-light" type="submit">Log out</button>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <div class="container mt-4">
+        <p class="h2 text-center">Settings</p>
+        <div class="d-flex justify-content-center">
+            <div class="card px-5 pt-4 pb-4 m-4 align-self-start" style="width: 500px">
+                <form action="auth" method="post">
+                    <p class="h5 text-center">Update Personal Data</p><hr>
+                    <input type="hidden" name="role" value="student">
+                    <div class="form-group row">
+                        <div class="col-6">
+                            <label for="floatingInput1">First Name</label>
+                            <input type="text" class="form-control" id="floatingInput1" placeholder="Alex" required="true">
+                        </div>
+                        <div class="col-6">
+                            <label for="floatingInput2">Last Name</label>
+                            <input type="text" class="form-control" id="floatingInput2" placeholder="Bell" required="true">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-6">
+                            <label>Select Group</label>
+                            <select class="form-select" aria-label="Default select example">
+                              <option value="se-1904">SE-1904</option>
+                              <option value="se-1905">SE-1905</option>
+                              <option value="se-1906">SE-1906</option>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <label for="age">Your Age</label>
+                            <input type="number" class="form-control" name="email" id="age" placeholder="8+" required="true">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Select Interests</label>
+                        <select class="form-select" aria-label="Default select example" multiple="true" size="3">
+                          <option value="sport">Sport</option>
+                          <option value="tech">Tech</option>
+                          <option value="marketing">Marketing</option>
+                          <option value="programming">Programming</option>
+                          <option value="phychology">Psychology</option>
+                          <option value="history">History</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </form>
+            </div>
+            <div class="card px-5 pt-4 pb-4 m-4 align-self-start" style="width: 500px">
+                <form action="auth" method="post">
+                    <p class="h5 text-center">Update Password</p><hr>
+                    <input type="hidden" name="role" value="student">
+                    <div class="form-group">
+                        <label for="student-password1">Old Password</label>
+                        <input type="password" class="form-control" name="password" id="student-password1" placeholder="Enter old password" required="true">
+                    </div>
+                    <div class="form-group">
+                        <label for="student-password2">New Password</label>
+                        <input type="password" class="form-control" name="password" id="student-password2" placeholder="Enter new password" required="true">
+                    </div>
+                    <div class="form-group">
+                        <label for="student-password">Confirmation Password</label>
+                        <input type="password" class="form-control" name="password" id="student-password" placeholder="Confirm new password" required="true">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
