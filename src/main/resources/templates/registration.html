@@ -33,18 +33,18 @@
 <div class="container mt-4">
     <div class="d-flex justify-content-center">
         <div class="card px-5 pt-4 pb-4 m-4" style="width: 500px">
-            <form action="auth" method="post">
+            <form action="/register" method="post" th:object="${user}">
                 <p class="h2 text-center">Registration</p>
                 <hr>
                 <input type="hidden" name="role" value="student">
                 <div class="form-group row">
                     <div class="col-6">
                         <label for="floatingInput1">First Name</label>
-                        <input type="text" class="form-control" id="floatingInput1" placeholder="Alex" required="true">
+                        <input type="text" th:field="*{firstName}" class="form-control" id="floatingInput1" placeholder="Alex" required="true">
                     </div>
                     <div class="col-6">
                         <label for="floatingInput2">Last Name</label>
-                        <input type="text" class="form-control" id="floatingInput2" placeholder="Bell" required="true">
+                        <input type="text" th:field="*{lastName}" class="form-control" id="floatingInput2" placeholder="Bell" required="true">
                     </div>
                 </div>
                 <div class="form-group row">
@@ -58,29 +58,17 @@
                     </div>
                     <div class="col-6">
                         <label for="age">Your Age</label>
-                        <input type="number" class="form-control" name="email" id="age" placeholder="8+"
-                               required="true">
+                        <input type="number" th:field="*{age}" class="form-control"  id="age" placeholder="8+" required="true">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>Select Interests</label>
-                    <select class="form-select" aria-label="Default select example" multiple="true" size="3">
-                        <option value="sport">Sport</option>
-                        <option value="tech">Tech</option>
-                        <option value="marketing">Marketing</option>
-                        <option value="programming">Programming</option>
-                        <option value="phychology">Psychology</option>
-                        <option value="history">History</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="student-email">Email address</label>
-                    <input type="email" class="form-control" name="email" id="student-email"
-                           placeholder="example@email.com" required="true">
+                    <label for="student-username">Email address</label>
+                    <input type="text" th:field="*{username}" class="form-control" id="student-username"
+                           placeholder="Unique username" required="true">
                 </div>
                 <div class="form-group">
                     <label for="student-password">Password</label>
-                    <input type="password" class="form-control" name="password" id="student-password"
+                    <input type="password" th:field="*{password}" class="form-control" id="student-password"
                            placeholder="Enter a strong password" required="true">
                 </div>
                 <button type="submit" class="btn btn-primary">Sign up</button>
