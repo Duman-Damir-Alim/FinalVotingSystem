@@ -1,6 +1,8 @@
 package com.aitu.votingsystem.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "teachers")
@@ -14,6 +16,9 @@ public class Teacher {
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "subject_id")
     private Subject subject;
+
+    @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL, orphanRemoval = true)
+    private final List<Survey> surveys = new ArrayList<>();
 
     public Integer getId() {
         return id;

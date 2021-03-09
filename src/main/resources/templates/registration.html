@@ -33,7 +33,7 @@
 <div class="container mt-4">
     <div class="d-flex justify-content-center">
         <div class="card px-5 pt-4 pb-4 m-4" style="width: 500px">
-            <form action="/register" method="post" th:object="${user}">
+            <form th:action="@{/register}" method="post" th:object="${user}">
                 <p class="h2 text-center">Registration</p>
                 <hr>
                 <input type="hidden" name="role" value="student">
@@ -62,7 +62,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="student-username">Email address</label>
+                    <label for="student-username">Username</label>
                     <input type="text" th:field="*{username}" class="form-control" id="student-username"
                            placeholder="Unique username" required="true">
                 </div>

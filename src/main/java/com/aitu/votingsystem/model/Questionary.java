@@ -17,6 +17,9 @@ public class Questionary {
     @OneToMany(mappedBy = "questionary", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<AnswerOptions> answerOptions = new ArrayList<>();
 
+    @OneToMany(mappedBy = "survey_questionary", cascade = CascadeType.ALL, orphanRemoval = true)
+    private final List<SurveyQuestionary> surveyQuestionary = new ArrayList<>();
+
     @OneToOne(fetch = FetchType.LAZY,
             cascade = CascadeType.ALL,
             mappedBy = "questionary")

@@ -25,7 +25,6 @@ public class RegisterController {
     public String showRegistrationForm(Model model, Principal principal) {
         User user = new User();
         model.addAttribute("user", user);
-        System.out.println("I am here");
         return "registration";
     }
 
@@ -37,7 +36,6 @@ public class RegisterController {
             model.addAttribute("message", "Username is already taken");
             return "registration";
         }
-
         user.setPassword(encoder.encode(user.getPassword()));
         userRepository.save(user);
         return "registration";
