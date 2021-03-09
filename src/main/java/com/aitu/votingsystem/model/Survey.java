@@ -24,4 +24,40 @@ public class Survey {
 
     @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<SurveyQuestionary> surveyQuestionary = new ArrayList<>();
+
+    public Integer getSurvey_id() {
+        return survey_id;
+    }
+
+    public void setSurvey_id(Integer survey_id) {
+        this.survey_id = survey_id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
+
+    public List<SurveyQuestionary> getSurveyQuestionary() {
+        return surveyQuestionary;
+    }
 }
