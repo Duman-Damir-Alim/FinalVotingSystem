@@ -62,6 +62,16 @@ public class MainPageController {
         return "teachersAndSubjects";
     }
 
+    @GetMapping("/showSurveyStatistics/{id}")
+    public String showSurveyStatistics(@PathVariable(value = "id") Integer id, Model model, Principal principal){
+        User user = userRepository.getUserByUsername(principal.getName());
+        Survey survey = surveyService.getSurveyById(id);
+        List<SurveyQuestionary> surveyQuestionaries = surveyQuestionaryService.getAllSurveyQuestionary(id);
+        model.addAttribute("questions", surveyQuestionaries);
+        model.addAttribute("surveyOne", survey);
+        return "statistics";
+    }
+
     @GetMapping("/showSurvey/{id}")
     public String getSurveyById(@PathVariable(value = "id") Integer id, Model model, Principal principal){
         User user = userRepository.getUserByUsername(principal.getName());
