@@ -9,7 +9,6 @@ public class Results {
     @Column(name = "id")
     private Integer id;
 
-
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "user_id")
     private User user;
