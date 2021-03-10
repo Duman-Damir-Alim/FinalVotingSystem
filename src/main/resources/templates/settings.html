@@ -58,18 +58,18 @@
     <p class="h2 text-center">Settings</p>
     <div class="d-flex justify-content-center">
         <div class="card px-5 pt-4 pb-4 m-4 align-self-start" style="width: 500px">
-            <form action="auth" method="post">
+            <form th:action="@{/updateProfile}" method="post">
                 <p class="h5 text-center">Update Personal Data</p>
                 <hr>
                 <input type="hidden" name="role" value="student">
                 <div class="form-group row">
                     <div class="col-6">
                         <label for="floatingInput1">First Name</label>
-                        <input type="text" class="form-control" id="floatingInput1" placeholder="Alex" required="true">
+                        <input type="text" th:field="${user.firstName}" name="firstName" class="form-control" id="floatingInput1" placeholder="Alex" required="true">
                     </div>
                     <div class="col-6">
                         <label for="floatingInput2">Last Name</label>
-                        <input type="text" class="form-control" id="floatingInput2" placeholder="Bell" required="true">
+                        <input type="text" th:field="${user.lastName}" name="lastName" class="form-control" id="floatingInput2" placeholder="Bell" required="true">
                     </div>
                 </div>
                 <div class="form-group row">
@@ -83,7 +83,7 @@
                     </div>
                     <div class="col-6">
                         <label for="age">Your Age</label>
-                        <input type="number" class="form-control" name="email" id="age" placeholder="8+"
+                        <input type="number" class="form-control" name="age" th:field="${user.age}" id="age" placeholder="8+"
                                required="true">
                     </div>
                 </div>
@@ -98,11 +98,15 @@
                         <option value="history">History</option>
                     </select>
                 </div>
+                <div th:if="${success_updated_profile != null}">
+                    <div class="alert alert-success" th:text="${success_updated_profile}">
+                    </div>
+                </div>
                 <button type="submit" class="btn btn-primary">Update</button>
             </form>
         </div>
         <div class="card px-5 pt-4 pb-4 m-4 align-self-start" style="width: 500px">
-            <form action="auth" method="post">
+            <form th:action="@{/updatePassword}" method="post">
                 <p class="h5 text-center">Update Password</p>
                 <hr>
                 <input type="hidden" name="role" value="student">
@@ -113,13 +117,21 @@
                 </div>
                 <div class="form-group">
                     <label for="student-password2">New Password</label>
-                    <input type="password" class="form-control" name="password" id="student-password2"
+                    <input type="password" class="form-control" name="newPassword" id="student-password2"
                            placeholder="Enter new password" required="true">
                 </div>
                 <div class="form-group">
                     <label for="student-password">Confirmation Password</label>
-                    <input type="password" class="form-control" name="password" id="student-password"
+                    <input type="password" class="form-control" name="confirmPassword" id="student-password"
                            placeholder="Confirm new password" required="true">
+                </div>
+                <div th:if="${error != null}">
+                    <div class="alert alert-danger" th:text="${error}">
+                    </div>
+                </div>
+                <div th:if="${success != null}">
+                    <div class="alert alert-success" th:text="${success}">
+                    </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Update</button>
             </form>
