@@ -1,18 +1,14 @@
 package com.aitu.votingsystem.controller;
 
-import com.aitu.votingsystem.model.AnswerOptions;
-import com.aitu.votingsystem.model.Questionary;
-import com.aitu.votingsystem.model.Survey;
-import com.aitu.votingsystem.model.SurveyQuestionary;
-import com.aitu.votingsystem.repository.AnswerOptionRepository;
-import com.aitu.votingsystem.repository.QuestionaryRepository;
-import com.aitu.votingsystem.repository.SurveyQuestionaryRepository;
-import com.aitu.votingsystem.repository.SurveyRepository;
+import com.aitu.votingsystem.model.*;
+import com.aitu.votingsystem.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
@@ -25,9 +21,13 @@ public class AdminPageController {
     private SurveyQuestionaryRepository surveyQuestionaryRepository;
     @Autowired
     private SurveyRepository surveyRepository;
+    @Autowired
+    private TeacherRepository teacherRepository;
 
     @GetMapping()
-    public String goToAdminPage() {
+    public String goToAdminPage(Model model) {
+        List<Survey> surveys = surveyRepository.findAll();
+        model.addAttribute("surveys", surveys);
         return "adminPage";
     }
 
@@ -116,6 +116,22 @@ public class AdminPageController {
         saveAnswerOption(questionary, option5);
 
         model.addAttribute("update_answers_message", "updated successfully");
+        return "adminPage";
+    }
+
+    @PostMapping("/createSurvey")
+    public String createSurvey(
+            @ModelAttribute("description") String description,
+            @ModelAttribute("title") String title,
+            @ModelAttribute("teacher_id") int teacher_id,
+            Model model
+    ) {
+        Survey survey = new Survey();
+        survey.setDescription(description);
+        survey.setTitle(title);
+        survey.setTeacher(teacherRepository.getOne(teacher_id));
+        surveyRepository.save(survey);
+        model.addAttribute("create_survey_message", "created successfully");
         return "adminPage";
     }
 }

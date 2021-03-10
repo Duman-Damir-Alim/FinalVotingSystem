@@ -7,51 +7,32 @@
         body {
             background-color: #eeeeee;
         }
+
         .card {
             width: 30rem;
             margin-right: 30px;
             padding: 30px;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
             transition: box-shadow 0.3s ease-in-out;
         }
+
         .card:hover {
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
     </style>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+          integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 
     <!-- jQuery and JS bundle w/ Popper.js -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+            crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary px-5">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">Voting System</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Profile</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Statistics</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Settings</a>
-                </li>
-            </ul>
-            <div class="d-flex align-items-center my-2">
-                <button class="btn btn-outline-light" type="submit">Log out</button>
-            </div>
-        </div>
-    </div>
-</nav>
+<head th:replace="navbar :: navbar"/>
+
 <div class="container">
     <div class="d-flex mt-4 align-items-start justify-content-center">
         <div class="card" style="width: 30rem; margin-right: 30px; padding: 30px;">
@@ -61,8 +42,12 @@
                     <p class="text-success">[[${add_question_message}]]</p>
                 </div>
                 <div class="form-group">
-                    <label>Survey id</label>
-                    <input type="number" class="form-control" name="survey_id" placeholder="Enter survey id">
+                    <label>Select Survey Id</label>
+                    <select name="survey_id">
+                        <option th:each="survey : ${surveys}"
+                                th:value="${survey.survey_id}" th:text="${survey.survey_id}"></option>
+                        </option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label>Question</label>
@@ -144,7 +129,7 @@
             </form>
         </div>
         <div class="card" style="width: 30rem; margin-right: 30px; padding: 30px; margin-top: 30px;">
-            <p class="h2">Delete Question</>
+            <p class="h2">Delete Question</p>
             <p>(Deletes answer options and question in survey</p>
             <form th:action="@{/admin/deleteQuestion}" method="post">
                 <div th:if="${delete_question_message != null}" class="m-3">
@@ -155,6 +140,27 @@
                     <input type="number" class="form-control" name="question_id" placeholder="Enter question id">
                 </div>
                 <button type="submit" class="btn btn-primary">Delete</button>
+            </form>
+        </div>
+        <div class="card" style="width: 30rem; margin-right: 30px; padding: 30px; margin-top: 30px;">
+            <p class="h2">Create Survey</p>
+            <form th:action="@{/admin/createSurvey}" method="post">
+                <div th:if="${create_survey_message != null}" class="m-3">
+                    <p class="text-success">[[${create_survey_message}]]</p>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <input type="text" class="form-control" name="description" placeholder="Enter description">
+                </div>
+                <div class="form-group">
+                    <label>Title</label>
+                    <input type="text" class="form-control" name="title" placeholder="Enter title">
+                </div>
+                <div class="form-group">
+                    <label>Teacher Id</label>
+                    <input type="text" class="form-control" name="teacher_id" placeholder="Enter teacher id">
+                </div>
+                <button type="submit" class="btn btn-primary">Add</button>
             </form>
         </div>
     </div>

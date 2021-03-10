@@ -20,6 +20,6 @@ insert into survey (description, title, teacher_id) values ('math survey', 'Teac
 insert into survey (description, title, teacher_id) values ('c++ survey', 'Teacher Feedback', 2);
 insert into survey (description, title, teacher_id) values ('english survey', 'Teacher Feedback', 3);
 
-insert into roles (role_id, role_name) VALUES (1, 'ADMIN');
+insert into roles (role_id, role_name) VALUES (1, 'ROLE_ADMIN');
 insert into roles (role_id, role_name) VALUES (2, 'USER');
 insert into users_roles (user_id, role_id) VALUES (1, 1)
