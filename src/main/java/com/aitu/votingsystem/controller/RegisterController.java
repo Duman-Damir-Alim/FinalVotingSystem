@@ -1,4 +1,4 @@
-package com.aitu.votingsystem.controllers;
+package com.aitu.votingsystem.controller;
 
 import com.aitu.votingsystem.model.User;
 import com.aitu.votingsystem.repository.UserRepository;
@@ -32,12 +32,14 @@ public class RegisterController {
     public String register(@ModelAttribute User user, Model model) {
         System.out.println("I am here!");
         System.out.println(user.toString());
-        if (userRepository.getUserByUsername(user.getUsername()) != null){
+        if (userRepository.getUserByUsername(user.getUsername()) != null) {
             model.addAttribute("message", "Username is already taken");
             return "registration";
         }
         user.setPassword(encoder.encode(user.getPassword()));
+        user.setEnabled(true);
         userRepository.save(user);
+        model.addAttribute("success_message", "User registered successfully");
         return "registration";
     }
 }

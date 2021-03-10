@@ -20,39 +20,16 @@ public class User {
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
-    @Column(name = "faculty_code")
-    private String facultyCode;
-    @Column(name = "group_number")
-    private int groupNumber;
+    @Column(name = "group")
+    private String group;
     @Column(name = "age")
     private int age;
     @Column(name = "password")
     private String password;
     @Column(name = "enabled")
     private boolean enabled;
-    @Column(name = "email")
-    private String email;
-
-//    insert into users (age, email, enabled, first_name, group, last_name, password, username) values (
-//             $2a$10$LjPzoIB0/J/HSyd85ohuDu79yEQGRNhYmTtukeXwggKD3AulYrp6K
-//                                                                                                   )
-
-
-    public String getFacultyCode() {
-        return facultyCode;
-    }
-
-    public void setFacultyCode(String facultyCode) {
-        this.facultyCode = facultyCode;
-    }
-
-    public int getGroupNumber() {
-        return groupNumber;
-    }
-
-    public void setGroupNumber(int groupNumber) {
-        this.groupNumber = groupNumber;
-    }
+    @Column(name = "interest")
+    private String interest;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
@@ -65,6 +42,22 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<Results> results = new ArrayList<>();
 
+
+    public String getGroup() {
+        return group;
+    }
+
+    public void setGroup(String group) {
+        this.group = group;
+    }
+
+    public String getInterest() {
+        return interest;
+    }
+
+    public void setInterest(String interest) {
+        this.interest = interest;
+    }
 
     public Integer getId() {
         return id;
@@ -120,14 +113,6 @@ public class User {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public Set<Role> getRoles() {

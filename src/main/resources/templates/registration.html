@@ -36,7 +36,10 @@
             <form th:action="@{/register}" method="post" th:object="${user}">
                 <p class="h2 text-center">Registration</p>
                 <hr>
-                <input type="hidden" name="role" value="student">
+                <div th:if="${success_message != null}" class="m-3">
+                    <p class="text-success">[[${success_message}]]</p>
+                </div>
+                <input type="hidden" name="role" value="USER">
                 <div class="form-group row">
                     <div class="col-6">
                         <label for="floatingInput1">First Name</label>
@@ -50,16 +53,24 @@
                 <div class="form-group row">
                     <div class="col-6">
                         <label>Select Group</label>
-                        <select class="form-select" aria-label="Default select example">
+                        <select class="form-select" th:field="*{group}" aria-label="Default select example">
                             <option value="se-1904">SE-1904</option>
-                            <option value="se-1905">SE-1905</option>
-                            <option value="se-1906">SE-1906</option>
+                            <option value="cs-1905">CS-1905</option>
+                            <option value="itm-1906">ITM-1906</option>
                         </select>
                     </div>
                     <div class="col-6">
                         <label for="age">Your Age</label>
                         <input type="number" th:field="*{age}" class="form-control"  id="age" placeholder="8+" required="true">
                     </div>
+                </div>
+                <div class="form-group">
+                    <label>Select Interest</label>
+                    <select class="form-select" th:field="*{interest}" aria-label="Default select example">
+                        <option value="tennis">Tennis</option>
+                        <option value="cooking">Cooking</option>
+                        <option value="eating">Eating</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="student-username">Username</label>
