@@ -9,6 +9,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface QuestionaryRepository  extends JpaRepository<Questionary, Integer> {
-    @Query("SELECT q.questionId FROM Questionary q WHERE q.question = :question")
-    int getQuestionId(@Param("question") String question);
+
 }

@@ -10,6 +10,7 @@ import com.aitu.votingsystem.repository.SurveyQuestionaryRepository;
 import com.aitu.votingsystem.repository.SurveyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,7 +23,7 @@ public class AdminPageController {
     @Autowired
     private QuestionaryRepository questionaryRepository;
     @Autowired
-    private AnswerOptionRepository answerOptionRepository;
+    private AnswerOptionRepository answerOptionsRepository;
     @Autowired
     private SurveyQuestionaryRepository surveyQuestionaryRepository;
     @Autowired
@@ -55,7 +56,7 @@ public class AdminPageController {
         saveAnswerOption(questionary, option5);
 
         SurveyQuestionary surveyQuestionary = new SurveyQuestionary();
-        Survey survey = surveyRepository.findById(survey_id).get();
+        Survey survey = surveyRepository.getOne(survey_id);
 
         surveyQuestionary.setSurvey_questionary(questionary);
         survey.setSurvey_id(survey_id);
@@ -63,7 +64,7 @@ public class AdminPageController {
 
         surveyQuestionaryRepository.save(surveyQuestionary);
 
-        model.addAttribute("message", "added successfully");
+        model.addAttribute("add_question_message", "added successfully");
         return "adminPage";
     }
 
@@ -71,7 +72,30 @@ public class AdminPageController {
         AnswerOptions answerOption = new AnswerOptions();
         answerOption.setQuestionary(questionary);
         answerOption.setOption(option);
-        answerOptionRepository.save(answerOption);
+        answerOptionsRepository.save(answerOption);
+    }
+
+    @PostMapping("/updateAnswersInQuestion")
+    @Transactional //transactional allows to make delete and update operations
+    public String updateAnswersInQuestion(
+            @ModelAttribute("question_id") int question_id,
+            @ModelAttribute("option1") String option1,
+            @ModelAttribute("option2") String option2,
+            @ModelAttribute("option3") String option3,
+            @ModelAttribute("option4") String option4,
+            @ModelAttribute("option5") String option5,
+            Model model) {
+        answerOptionsRepository.deleteAnswerOptionsByQuestionId(question_id);
+        Questionary questionary = questionaryRepository.getOne(question_id);
+
+        saveAnswerOption(questionary, option1);
+        saveAnswerOption(questionary, option2);
+        saveAnswerOption(questionary, option3);
+        saveAnswerOption(questionary, option4);
+        saveAnswerOption(questionary, option5);
+
+        model.addAttribute("update_question_message", "updated successfully");
+        return "adminPage";
     }
 
 }

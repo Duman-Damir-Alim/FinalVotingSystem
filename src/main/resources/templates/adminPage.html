@@ -43,9 +43,9 @@
     <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
 </head>
 <body>
-<h2>Add Question to Survey</h2>
+<h1>Add Question to Survey</h1>
 <form th:action="@{/admin/addQuestionAndAnswerOptionsToSurvey}" method="post">
-    <div th:if="${message != null}" class="m-3">
+    <div th:if="${add_question_message != null}" class="m-3">
         <p class="text-success">[[${message}]]</p>
     </div>
     <div class="form-group">
@@ -77,6 +77,38 @@
         <input type="text" class="form-control" name="option5" placeholder="option5">
     </div>
     <button type="submit" class="btn btn-primary">Add</button>
+</form>
+
+<h1>Update Answers in Question</h1>
+<form th:action="@{/admin/updateAnswersInQuestion}" method="post">
+    <div th:if="${update_question_message != null}" class="m-3">
+        <p class="text-success">[[${message}]]</p>
+    </div>
+    <div class="form-group">
+        <label>Question id</label>
+        <input type="number" class="form-control" name="question_id" placeholder="Enter question id">
+    </div>
+    <div class="form-group">
+        <label>Answer option1</label>
+        <input type="text" class="form-control" name="option1" placeholder="option1">
+    </div>
+    <div class="form-group">
+        <label>Answer option2</label>
+        <input type="text" class="form-control" name="option2" placeholder="option2">
+    </div>
+    <div class="form-group">
+        <label>Answer option3</label>
+        <input type="text" class="form-control" name="option3" placeholder="option3">
+    </div>
+    <div class="form-group">
+        <label>Answer option4</label>
+        <input type="text" class="form-control" name="option4" placeholder="option4">
+    </div>
+    <div class="form-group">
+        <label>Answer option5</label>
+        <input type="text" class="form-control" name="option5" placeholder="option5">
+    </div>
+    <button type="submit" class="btn btn-primary">Update</button>
 </form>
 </body>
 </html>
