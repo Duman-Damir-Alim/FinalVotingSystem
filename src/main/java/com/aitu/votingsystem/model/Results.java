@@ -15,10 +15,8 @@ public class Results {
     private User user;
 
     @OneToOne(fetch = FetchType.LAZY, optional = false)
-
-    @JoinColumn(name = "question_id", nullable = false)
-    private Questionary questionary;
-    private String answer;
+    @JoinColumn(name = "answer_option_id", nullable = false)
+    private AnswerOptions answerOption;
 
     public Integer getId() {
         return id;
@@ -36,26 +34,11 @@ public class Results {
         this.user = user;
     }
 
-    public Questionary getQuestionary() {
-        return questionary;
+    public AnswerOptions getAnswerOption() {
+        return answerOption;
     }
 
-    public void setQuestionary(Questionary questionary) {
-        this.questionary = questionary;
+    public void setAnswerOption(AnswerOptions answerOption) {
+        this.answerOption = answerOption;
     }
-
-    public String getAnswer() {
-        return answer;
-    }
-
-    public void setAnswer(String answer) {
-        this.answer = answer;
-    }
-
-
-    //    private String competence;
-//    private String understandableLecture;
-//    private String syllabus;
-//    private String homeworkCheck;
-//    private String comment;
 }

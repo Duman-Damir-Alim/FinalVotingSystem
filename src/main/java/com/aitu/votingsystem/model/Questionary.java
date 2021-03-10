@@ -20,11 +20,6 @@ public class Questionary {
     @OneToMany(mappedBy = "survey_questionary", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<SurveyQuestionary> surveyQuestionary = new ArrayList<>();
 
-    @OneToOne(fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL,
-            mappedBy = "questionary")
-    private Results results;
-
     public Integer getQuestionId() {
         return questionId;
     }
@@ -43,13 +38,5 @@ public class Questionary {
 
     public List<AnswerOptions> getAnswerOptions() {
         return answerOptions;
-    }
-
-    public Results getResults() {
-        return results;
-    }
-
-    public void setResults(Results results) {
-        this.results = results;
     }
 }

@@ -15,6 +15,11 @@ public class AnswerOptions {
     @JoinColumn(name = "question_id")
     private Questionary questionary;
 
+    @OneToOne(fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            mappedBy = "answerOption")
+    private Results results;
+
     public Integer getId() {
         return id;
     }
