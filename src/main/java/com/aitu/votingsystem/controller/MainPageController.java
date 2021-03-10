@@ -110,19 +110,25 @@ public class MainPageController {
             @ModelAttribute("option1") Integer option_1,
             @ModelAttribute("option2") Integer option_2,
             @ModelAttribute("option3") Integer option_3,
-            @ModelAttribute("option4") Integer option_4, Model model) {
-        System.out.println(option_0);
-        if (option_3 != null) {
-            System.out.println(option_3);
-        }
-        if (option_4 != null) {
-            System.out.println(option_4);
-        }
-        System.out.println(option_1);
-        System.out.println(option_2);
+            @ModelAttribute("option4") Integer option_4,
+            Principal principal, Model model) {
+        User user = userRepository.getUserByUsername(principal.getName());
 
-        //System.out.println("Value: " + answerOptions);
+        saveResult(user, option_0);
+        saveResult(user, option_1);
+        saveResult(user, option_2);
+        saveResult(user, option_3);
+        saveResult(user, option_4);
+
         return "redirect:/";
+    }
+
+    private void saveResult(User user, Integer option) {
+        AnswerOptions answerOption = answerOptionRepository.getOne(option);
+        Results result = new Results();
+        result.setUser(user);
+        result.setAnswerOption(answerOption);
+        resultRepository.save(result);
     }
 
     @GetMapping("/complaint")
