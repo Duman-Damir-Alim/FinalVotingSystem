@@ -3,10 +3,7 @@ package com.aitu.votingsystem.controller;
 
 import com.aitu.votingsystem.ResultWrapper;
 import com.aitu.votingsystem.model.*;
-import com.aitu.votingsystem.repository.ResultRepository;
-import com.aitu.votingsystem.repository.SubjectRepository;
-import com.aitu.votingsystem.repository.TeacherRepository;
-import com.aitu.votingsystem.repository.UserRepository;
+import com.aitu.votingsystem.repository.*;
 import com.aitu.votingsystem.services.interfaces.SurveyQuestionaryService;
 import com.aitu.votingsystem.services.interfaces.SurveyService;
 import com.aitu.votingsystem.threads.Client;
@@ -40,6 +37,8 @@ public class MainPageController {
     private UserRepository userRepository;
     @Autowired
     private ResultRepository resultRepository;
+    @Autowired
+    private AnswerOptionRepository answerOptionRepository;
 
 
     @GetMapping("/")
@@ -87,19 +86,25 @@ public class MainPageController {
             @ModelAttribute("option1") Integer option_1,
             @ModelAttribute("option2") Integer option_2,
             @ModelAttribute("option3") Integer option_3,
-            @ModelAttribute("option4") Integer option_4, Model model) {
-        System.out.println(option_0);
-        if (option_3 != null) {
-            System.out.println(option_3);
-        }
-        if (option_4 != null) {
-            System.out.println(option_4);
-        }
-        System.out.println(option_1);
-        System.out.println(option_2);
+            @ModelAttribute("option4") Integer option_4,
+            Principal principal, Model model) {
+        User user = userRepository.getUserByUsername(principal.getName());
 
-        //System.out.println("Value: " + answerOptions);
+        saveResult(user, option_0);
+        saveResult(user, option_1);
+        saveResult(user, option_2);
+        saveResult(user, option_3);
+        saveResult(user, option_4);
+
         return "redirect:/";
+    }
+
+    private void saveResult(User user, Integer option) {
+        AnswerOptions answerOption = answerOptionRepository.getOne(option);
+        Results result = new Results();
+        result.setUser(user);
+        result.setAnswerOption(answerOption);
+        resultRepository.save(result);
     }
 
     @GetMapping("/complaint")

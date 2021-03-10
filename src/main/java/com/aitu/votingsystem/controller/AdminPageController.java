@@ -48,6 +48,8 @@ public class AdminPageController {
             @ModelAttribute("option4") String option4,
             @ModelAttribute("option5") String option5,
             Model model) {
+        List<Survey> surveys = surveyRepository.findAll();
+        model.addAttribute("surveys", surveys);
         Questionary questionary = new Questionary();
         questionary.setQuestion(question);
         questionaryRepository.save(questionary);
