@@ -1,6 +1,8 @@
 package com.aitu.votingsystem.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "answer_options")
@@ -15,10 +17,11 @@ public class AnswerOptions {
     @JoinColumn(name = "question_id")
     private Questionary questionary;
 
-    @OneToOne(fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL,
-            mappedBy = "answerOption")
-    private Results results;
+    @Column(name = "percentage")
+    private double percentage;
+
+    @OneToMany(mappedBy = "answerOption", cascade = CascadeType.ALL, orphanRemoval = true)
+    private final List<Results> results = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -42,5 +45,17 @@ public class AnswerOptions {
 
     public void setQuestionary(Questionary questionary) {
         this.questionary = questionary;
+    }
+
+    public double getPercentage() {
+        return percentage;
+    }
+
+    public void setPercentage(double percentage) {
+        this.percentage = percentage;
+    }
+
+    public List<Results> getResults() {
+        return results;
     }
 }

@@ -17,7 +17,7 @@ public class Results {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "answer_option_id", nullable = false)
     private AnswerOptions answerOption;
 

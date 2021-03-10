@@ -54,7 +54,10 @@
               <div class="mb-5" th:each="question, iter: ${questions}">
                 <p class="h5" th:text="${question.survey_questionary.question}"></p>
                 <div style="display: flex; flex-direction: column;" th:each="answerOption: ${question.survey_questionary.answerOptions}">
-                  <span th:text="${answerOption.option}">First option - <strong>59%</strong></span>
+                    <div>
+                        <span th:text="${answerOption.option}"></span> -
+                        <strong th:text="${answerOption.percentage + '%'}"></strong>
+                    </div>
                 </div>
               </div>
             </div>

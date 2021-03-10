@@ -3,10 +3,7 @@ package com.aitu.votingsystem.controller;
 
 import com.aitu.votingsystem.ResultWrapper;
 import com.aitu.votingsystem.model.*;
-import com.aitu.votingsystem.repository.ResultRepository;
-import com.aitu.votingsystem.repository.SubjectRepository;
-import com.aitu.votingsystem.repository.TeacherRepository;
-import com.aitu.votingsystem.repository.UserRepository;
+import com.aitu.votingsystem.repository.*;
 import com.aitu.votingsystem.services.interfaces.SurveyQuestionaryService;
 import com.aitu.votingsystem.services.interfaces.SurveyService;
 import com.aitu.votingsystem.threads.Client;
@@ -40,6 +37,8 @@ public class MainPageController {
     private UserRepository userRepository;
     @Autowired
     private ResultRepository resultRepository;
+    @Autowired
+    private AnswerOptionRepository answerOptionRepository;
 
 
     @GetMapping("/")
@@ -69,6 +68,20 @@ public class MainPageController {
         User user = userRepository.getUserByUsername(principal.getName());
         Survey survey = surveyService.getSurveyById(id);
         List<SurveyQuestionary> surveyQuestionaries = surveyQuestionaryService.getAllSurveyQuestionary(id);
+        for (SurveyQuestionary surveyQuestionary : surveyQuestionaries) {
+            System.out.println("Hello");
+            int sum = 0;
+            for (AnswerOptions answerOptions : surveyQuestionary.getSurvey_questionary().getAnswerOptions()){
+                //System.out.println(answerOptions.getId() + " " + answerOptions.getOption());
+                sum += resultRepository.findResultsByAnswerOption(answerOptions).size();
+                //System.out.println(resultRepository.findResultsByAnswerOption(answerOptions).size());
+            }
+            System.out.println(sum);
+            for (AnswerOptions answerOptions : surveyQuestionary.getSurvey_questionary().getAnswerOptions()){
+                int count = resultRepository.findResultsByAnswerOption(answerOptions).size();
+                answerOptions.setPercentage((count * 100) / sum);
+            }
+        }
         model.addAttribute("questions", surveyQuestionaries);
         model.addAttribute("surveyOne", survey);
         return "statistics";
