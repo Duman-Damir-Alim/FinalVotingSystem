@@ -34,7 +34,7 @@
         <p class="h5"><span th:text="${question.survey_questionary.question}">...</span></p>
         <div th:each="answerOption: ${question.survey_questionary.answerOptions}">
         <div class="form-check">
-          <input class="form-check-input" type="radio" th:name="${survey_questionary_id}" th:id="${answerOption.id}">
+          <input class="form-check-input" type="radio" th:name="${question.survey_questionary_id}" th:id="${answerOption.id}">
           <label th:text="${answerOption.option}" class="form-check-label" th:for="${answerOption.id}">
 
 <!--            <span th:text="${question.survey_questionary.answerOptions.option}">...</span>-->
