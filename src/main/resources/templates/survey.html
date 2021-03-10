@@ -50,18 +50,18 @@
 </nav>
 <div class="d-flex justify-content-center pt-4">
   <div class="card p-3">
-      <form>
+      <form th:action="@{/submitSurvey}" method="post" th:object="${resultWrapper}">
           <div class="card-body">
               <p class="display-5"><span th:text="${surveyOne.title}">...</span></p>
 
               <h6 class="card-subtitle mb-2 text-muted"><span th:text="${surveyOne.teacher.name}">...</span></h6>
               <p class="card-text"><span th:text="${surveyOne.description}">...</span></p>
               <hr>
-              <div th:each="question: ${questions}" class="mb-5">
+              <div th:each="question, iter: ${questions}" class="mb-5">
                   <p class="h5"><span th:text="${question.survey_questionary.question}">...</span></p>
                   <div th:each="answerOption: ${question.survey_questionary.answerOptions}">
                       <div class="form-check">
-                          <input class="form-check-input" type="radio" th:name="${question.survey_questionary_id}" th:id="${answerOption.id}">
+                          <input class="form-check-input" type="radio" th:field="*{resultWrapper.results[__${iter.index}__].answerOption.id}" th:name="${question.survey_questionary_id}" th:value="${answerOption.id}" th:id="${answerOption.id}">
                           <label th:text="${answerOption.option}" class="form-check-label" th:for="${answerOption.id}"></label>
                       </div>
                   </div>

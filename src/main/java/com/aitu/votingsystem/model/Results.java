@@ -9,6 +9,9 @@ public class Results {
     @Column(name = "id")
     private Integer id;
 
+    public Results(User user) {
+        this.user = user;
+    }
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "user_id")
@@ -17,6 +20,10 @@ public class Results {
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "answer_option_id", nullable = false)
     private AnswerOptions answerOption;
+
+    public Results() {
+
+    }
 
     public Integer getId() {
         return id;
