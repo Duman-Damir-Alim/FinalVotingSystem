@@ -3,7 +3,6 @@ package com.aitu.votingsystem.controller;
 import com.aitu.votingsystem.model.User;
 import com.aitu.votingsystem.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,7 +30,7 @@ public class ProfileController {
 
     @PostMapping("/updateProfile")
     public String updateProfile(Principal principal, Model model, @ModelAttribute("firstName") String firstName,
-                                @ModelAttribute("lastName") String lastName, @ModelAttribute("age") int age){
+                                @ModelAttribute("lastName") String lastName, @ModelAttribute("age") int age) {
         User user = userRepository.getUserByUsername(principal.getName());
         user.setFirstName(firstName);
         user.setLastName(lastName);
@@ -43,7 +42,7 @@ public class ProfileController {
     }
 
     @GetMapping("/settings")
-    public String settings(Principal principal, Model model){
+    public String settings(Principal principal, Model model) {
         User user = userRepository.getUserByUsername(principal.getName());
         model.addAttribute("user", user);
         return "settings";
@@ -53,19 +52,19 @@ public class ProfileController {
     public String updatePassword(Principal principal, Model model,
                                  @ModelAttribute("password") String password,
                                  @ModelAttribute("newPassword") String newPassword,
-                                 @ModelAttribute("confirmPassword") String confirmPassword){
+                                 @ModelAttribute("confirmPassword") String confirmPassword) {
         User user = userRepository.getUserByUsername(principal.getName());
-        if (encoder.matches(password, user.getPassword())){
-            if (encoder.matches(newPassword, user.getPassword())){
+        if (encoder.matches(password, user.getPassword())) {
+            if (encoder.matches(newPassword, user.getPassword())) {
                 model.addAttribute("error", "Your new password should be different");
-            } else if(newPassword.equals(confirmPassword)){
+            } else if (newPassword.equals(confirmPassword)) {
                 user.setPassword(encoder.encode(newPassword));
                 userRepository.save(user);
                 model.addAttribute("success", "Password updated successfully!");
-            }else{
+            } else {
                 model.addAttribute("error", "Passwords do not match");
             }
-        }else{
+        } else {
             model.addAttribute("error", "Current password incorrect");
         }
         model.addAttribute("user", user);

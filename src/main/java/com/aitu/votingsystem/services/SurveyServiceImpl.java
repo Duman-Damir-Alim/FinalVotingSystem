@@ -21,14 +21,13 @@ public class SurveyServiceImpl implements SurveyService {
 
     @Override
     public Survey getSurveyById(int id) {
-       Optional<Survey> optional = surveyRepository.findById(id);
-       Survey survey = null;
-       if(optional.isPresent()) {
-           survey = optional.get();
-       }
-       else {
-           throw new RuntimeException("Survey not found for id :: " + id);
-       }
-       return survey;
+        Optional<Survey> optional = surveyRepository.findById(id);
+        Survey survey = null;
+        if (optional.isPresent()) {
+            survey = optional.get();
+        } else {
+            throw new RuntimeException("Survey not found for id :: " + id);
+        }
+        return survey;
     }
 }

@@ -10,6 +10,6 @@ import java.util.List;
 
 @Repository
 public interface SurveyQuestionaryRepository extends JpaRepository<SurveyQuestionary, Integer> {
-    @Query( value =  "SELECT * FROM survey_questionary WHERE survey_id = ?", nativeQuery = true)
+    @Query(value = "SELECT * FROM survey_questionary WHERE survey_id = ?", nativeQuery = true)
     List<SurveyQuestionary> getAllBySurveyId(@Param("id") Integer id);
 }

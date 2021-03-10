@@ -7,5 +7,6 @@ import java.util.Optional;
 
 public interface TeacherService {
     List<Teacher> getAllTeachers();
+
     Optional<Teacher> findById(int id);
 }
