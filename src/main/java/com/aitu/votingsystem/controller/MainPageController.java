@@ -1,13 +1,12 @@
 package com.aitu.votingsystem.controller;
 
 
-import com.aitu.votingsystem.model.Subject;
-import com.aitu.votingsystem.model.Survey;
-import com.aitu.votingsystem.model.SurveyQuestionary;
-import com.aitu.votingsystem.model.Teacher;
+import com.aitu.votingsystem.ResultWrapper;
+import com.aitu.votingsystem.model.*;
 import com.aitu.votingsystem.repository.SubjectRepository;
 import com.aitu.votingsystem.repository.SurveyRepository;
 import com.aitu.votingsystem.repository.TeacherRepository;
+import com.aitu.votingsystem.repository.UserRepository;
 import com.aitu.votingsystem.services.interfaces.SurveyQuestionaryService;
 import com.aitu.votingsystem.services.interfaces.SurveyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +15,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.lang.reflect.Array;
+import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,6 +36,8 @@ public class MainPageController {
     private SurveyRepository surveyRepository;
     @Autowired
     private SurveyQuestionaryService surveyQuestionaryService;
+    @Autowired
+    private UserRepository userRepository;
 
 
     @GetMapping("/")
@@ -70,12 +71,26 @@ public class MainPageController {
 
 
     @GetMapping("/showSurvey/{id}")
-    public String getSurveyById(@PathVariable(value = "id") Integer id, Model model){
+    public String getSurveyById(@PathVariable(value = "id") Integer id, Model model, Principal principal){
+        User user = userRepository.getUserByUsername(principal.getName());
         Survey survey = surveyService.getSurveyById(id);
         List<SurveyQuestionary> surveyQuestionaries = surveyQuestionaryService.getAllSurveyQuestionary(id);
         model.addAttribute("questions", surveyQuestionaries);
         model.addAttribute("surveyOne", survey);
+        ArrayList<Results> results = new ArrayList<>();
+        for (int i = 0; i < surveyQuestionaries.size(); ++i){
+            results.add(new Results(user));
+        }
+        ResultWrapper resultWrapper = new ResultWrapper();
+        resultWrapper.setResults(results);
+        model.addAttribute("resultWrapper", resultWrapper);
         return "survey";
+    }
+
+    @PostMapping("/submitSurvey")
+    public String submitSurvey(ArrayList<Results> results){
+        System.out.println("Value: " + results);
+        return "redirect:mainPage";
     }
 }
 
