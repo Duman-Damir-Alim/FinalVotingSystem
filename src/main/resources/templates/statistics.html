@@ -17,33 +17,7 @@
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary px-5">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">Voting System</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="#">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Profile</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Statistics</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Settings</a>
-            </li>
-          </ul>
-          <div class="d-flex align-items-center my-2">
-              <button class="btn btn-outline-light" type="submit">Log out</button>
-          </div>
-        </div>
-      </div>
-    </nav>
+<head th:replace="navbar :: navbar"/>
     <div class="d-flex justify-content-center pt-4">
         <div class="card p-3">
             <div class="card-body">

@@ -9,8 +9,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary px-5" th:fragment="navbar">
     <div class="container-fluid">
         <a class="navbar-brand" th:href="@{/}">Voting System</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -20,9 +19,6 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/profile}">Profile</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/statistics}">Statistics</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/settings}">Settings</a>
@@ -39,12 +35,12 @@
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/complaint}">Complaints and Suggestions</a>
                 </li>
-                <div class="d-flex align-items-center my-2">
-                    <form th:action="@{/logout}" method="post">
-                        <input type="submit" value="Logout">
-                    </form>
-                </div>
             </ul>
+            <div class="d-flex align-items-center my-2">
+                <form th:action="@{/logout}" method="post">
+                    <input type="submit" class="btn btn btn-outline-light" value="Logout">
+                </form>
+            </div>
         </div>
     </div>
 </nav>

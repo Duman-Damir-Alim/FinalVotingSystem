@@ -19,37 +19,39 @@
 </head>
 <body>
 <head th:replace="navbar :: navbar"/>
-<h1>Teachers</h1>
-<table class="table table-dark">
-    <thead class="thead-light">
-    <tr>
-        <th scope="col">Teacher Id</th>
-        <th scope="col">Name</th>
-        <th scope="col">Subject Id</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="teacher : ${teachers}">
-        <td scope="row" th:text="${teacher.id}"></td>
-        <td th:text="${teacher.name}"></td>
-        <td th:text="${teacher.subject.id}"></td>
-    </tr>
-    </tbody>
-</table>
-<h1>Subjects</h1>
-<table class="table table-dark">
-    <thead class="thead-light">
-    <tr>
-        <th scope="col">Subject Id</th>
-        <th scope="col">Subject Name</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="subject : ${subjects}">
-        <td scope="row" th:text="${subject.id}"></td>
-        <td th:text="${subject.name}"></td>
-    </tr>
-    </tbody>
-</table>
+<div class="container px-5 py-4">
+    <h1>Teachers</h1>
+    <table class="table table-dark">
+        <thead class="thead-light">
+        <tr>
+            <th scope="col">Teacher Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Subject Id</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="teacher : ${teachers}">
+            <td scope="row" th:text="${teacher.id}"></td>
+            <td th:text="${teacher.name}"></td>
+            <td th:text="${teacher.subject.id}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <h1>Subjects</h1>
+    <table class="table table-dark">
+        <thead class="thead-light">
+        <tr>
+            <th scope="col">Subject Id</th>
+            <th scope="col">Subject Name</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="subject : ${subjects}">
+            <td scope="row" th:text="${subject.id}"></td>
+            <td th:text="${subject.name}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>

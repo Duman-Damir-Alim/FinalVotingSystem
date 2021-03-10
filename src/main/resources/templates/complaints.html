@@ -10,10 +10,6 @@
             crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-    <script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
-    <script th:src="@{/webjars/popper.js/1.12.9-1/umd/popper.min.js}"></script>
-    <script th:src="@{/webjars/bootstrap/4.0.0-2/js/bootstrap.min.js}"></script>
-    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
     <title>Complaints</title>
     <style>
         .card {
@@ -31,26 +27,27 @@
 </head>
 <body>
 <head th:replace="navbar :: navbar"/>
-
-<div class="card">
-    <div class="card-body">
-        <h4 class="card-title">Write your complaints or suggestions</h4>
-        <form th:action="@{/complaint}" method="post">
-            <div class="form-group">
-                <label>Text</label>
-                <input type="textarea" class="form-control" name="text" placeholder="question">
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+<div class="container pt-5">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Write your complaints or suggestions</h4>
+            <form th:action="@{/complaint}" method="post">
+                <div class="form-group">
+                    <label>Text</label>
+                    <input type="textarea" class="form-control" name="text" placeholder="question">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
     </div>
-</div>
 
-<div class="card" th:if="${message != null}">
-    <div class="card-body">
-        <h4 class="card-title">Response</h4>
-        <div class="text-info">
-            <h3>Thank you, <span th:text="${user.username}"></span></h3>
-            <p>[[${message}]]</p>
+    <div class="card" th:if="${message != null}">
+        <div class="card-body">
+            <h4 class="card-title">Response</h4>
+            <div class="text-info">
+                <h3>Thank you, <span th:text="${user.username}"></span></h3>
+                <p>[[${message}]]</p>
+            </div>
         </div>
     </div>
 </div>
