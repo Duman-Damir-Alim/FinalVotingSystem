@@ -1,6 +1,7 @@
 package com.aitu.votingsystem.controller;
 
 import com.aitu.votingsystem.model.User;
+import com.aitu.votingsystem.repository.ResultRepository;
 import com.aitu.votingsystem.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -11,20 +12,30 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 public class ProfileController {
 
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private PasswordEncoder encoder;
+    @Autowired
+    private ResultRepository resultRepository;
 
     @GetMapping("/profile")
     public String profilePage(Principal principal, Model model) {
         User user = userRepository.getUserByUsername(principal.getName());
         model.addAttribute("user", user);
+
+        List<String> titles = resultRepository.getSurveyTitleByUserId(user.getId());
+        List<String> descriptions = resultRepository.getSurveyDescriptionByUserId(user.getId());
+
+
+        model.addAttribute("titles", titles);
+        model.addAttribute("descriptions", descriptions);
+
         return "profile";
     }
 

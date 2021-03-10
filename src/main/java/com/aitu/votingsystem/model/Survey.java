@@ -25,6 +25,9 @@ public class Survey {
     @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<SurveyQuestionary> surveyQuestionary = new ArrayList<>();
 
+    @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL, orphanRemoval = true)
+    private final List<Results> results = new ArrayList<>();
+
     public Integer getSurvey_id() {
         return survey_id;
     }
@@ -59,5 +62,9 @@ public class Survey {
 
     public List<SurveyQuestionary> getSurveyQuestionary() {
         return surveyQuestionary;
+    }
+
+    public List<Results> getResults() {
+        return results;
     }
 }

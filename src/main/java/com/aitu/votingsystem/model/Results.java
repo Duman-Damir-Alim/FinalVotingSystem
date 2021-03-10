@@ -22,6 +22,10 @@ public class Results {
     @JoinColumn(name = "answer_option_id", nullable = false)
     private AnswerOptions answerOption;
 
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(name = "survey_id")
+    private Survey survey;
+
     public Results() {
 
     }
@@ -40,6 +44,14 @@ public class Results {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Survey getSurvey() {
+        return survey;
+    }
+
+    public void setSurvey(Survey survey) {
+        this.survey = survey;
     }
 
     public AnswerOptions getAnswerOption() {

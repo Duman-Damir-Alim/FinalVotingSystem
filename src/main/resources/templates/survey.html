@@ -31,6 +31,7 @@
     <div class="card p-3">
         <form th:action="@{/submitSurvey}" method="post">
             <div class="card-body">
+                <input type="hidden" name="survey_id" th:value="${surveyOne.survey_id}">
                 <p class="display-5"><span th:text="${surveyOne.title}">...</span></p>
                 <h6 class="card-subtitle mb-2 text-muted"><span th:text="${surveyOne.teacher.name}">...</span></h6>
                 <p class="card-text"><span th:text="${surveyOne.description}">...</span></p>

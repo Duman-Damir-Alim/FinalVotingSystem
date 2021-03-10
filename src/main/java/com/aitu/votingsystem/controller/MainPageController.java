@@ -64,22 +64,24 @@ public class MainPageController {
     }
 
     @GetMapping("/showSurveyStatistics/{id}")
-    public String showSurveyStatistics(@PathVariable(value = "id") Integer id, Model model, Principal principal){
+    public String showSurveyStatistics(@PathVariable(value = "id") Integer id, Model model, Principal principal) {
         User user = userRepository.getUserByUsername(principal.getName());
         Survey survey = surveyService.getSurveyById(id);
         List<SurveyQuestionary> surveyQuestionaries = surveyQuestionaryService.getAllSurveyQuestionary(id);
         for (SurveyQuestionary surveyQuestionary : surveyQuestionaries) {
             System.out.println("Hello");
             int sum = 0;
-            for (AnswerOptions answerOptions : surveyQuestionary.getSurvey_questionary().getAnswerOptions()){
-                //System.out.println(answerOptions.getId() + " " + answerOptions.getOption());
+            for (AnswerOptions answerOptions : surveyQuestionary.getSurvey_questionary().getAnswerOptions()) {
                 sum += resultRepository.findResultsByAnswerOption(answerOptions).size();
-                //System.out.println(resultRepository.findResultsByAnswerOption(answerOptions).size());
             }
             System.out.println(sum);
-            for (AnswerOptions answerOptions : surveyQuestionary.getSurvey_questionary().getAnswerOptions()){
+            for (AnswerOptions answerOptions : surveyQuestionary.getSurvey_questionary().getAnswerOptions()) {
                 int count = resultRepository.findResultsByAnswerOption(answerOptions).size();
-                answerOptions.setPercentage((count * 100) / sum);
+                try {
+                    answerOptions.setPercentage((count * 100) / sum);
+                } catch (Exception e) {
+                    answerOptions.setPercentage(0);
+                }
             }
         }
         model.addAttribute("questions", surveyQuestionaries);
@@ -106,28 +108,33 @@ public class MainPageController {
 
     @PostMapping("/submitSurvey")
     public String submitSurvey(
+            @ModelAttribute("survey_id") String survey_id,
             @ModelAttribute("option0") Integer option_0,
             @ModelAttribute("option1") Integer option_1,
             @ModelAttribute("option2") Integer option_2,
             @ModelAttribute("option3") Integer option_3,
             @ModelAttribute("option4") Integer option_4,
-            Principal principal, Model model) {
+            Principal principal) {
         User user = userRepository.getUserByUsername(principal.getName());
+        int int_survey_id = Integer.parseInt(survey_id);
 
-        saveResult(user, option_0);
-        saveResult(user, option_1);
-        saveResult(user, option_2);
-        saveResult(user, option_3);
-        saveResult(user, option_4);
+        Survey survey = surveyService.getSurveyById(int_survey_id);
+
+        saveResult(user, option_0, survey);
+        saveResult(user, option_1, survey);
+        saveResult(user, option_2, survey);
+        saveResult(user, option_3, survey);
+        saveResult(user, option_4, survey);
 
         return "redirect:/";
     }
 
-    private void saveResult(User user, Integer option) {
+    private void saveResult(User user, Integer option, Survey survey) {
         AnswerOptions answerOption = answerOptionRepository.getOne(option);
         Results result = new Results();
         result.setUser(user);
         result.setAnswerOption(answerOption);
+        result.setSurvey(survey);
         resultRepository.save(result);
     }
 
