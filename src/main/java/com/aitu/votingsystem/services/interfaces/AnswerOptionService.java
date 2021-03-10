@@ -1,4 +1,4 @@
-package com.aitu.votingsystem.service;
+package com.aitu.votingsystem.services.interfaces;
 
 import com.aitu.votingsystem.model.AnswerOptions;
 

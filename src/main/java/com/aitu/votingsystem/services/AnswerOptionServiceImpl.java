@@ -1,7 +1,8 @@
-package com.aitu.votingsystem.service;
+package com.aitu.votingsystem.services;
 
 import com.aitu.votingsystem.model.AnswerOptions;
 import com.aitu.votingsystem.repository.AnswerOptionRepository;
+import com.aitu.votingsystem.services.interfaces.AnswerOptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
