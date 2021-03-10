@@ -9,6 +9,7 @@ import com.aitu.votingsystem.repository.TeacherRepository;
 import com.aitu.votingsystem.repository.UserRepository;
 import com.aitu.votingsystem.services.interfaces.SurveyQuestionaryService;
 import com.aitu.votingsystem.services.interfaces.SurveyService;
+import com.aitu.votingsystem.threads.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -18,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.security.Principal;
 import java.util.ArrayList;
@@ -33,8 +35,6 @@ public class MainPageController {
     @Autowired
     private SurveyService surveyService;
     @Autowired
-    private SurveyRepository surveyRepository;
-    @Autowired
     private SurveyQuestionaryService surveyQuestionaryService;
     @Autowired
     private UserRepository userRepository;
@@ -48,8 +48,6 @@ public class MainPageController {
         if (!(auth instanceof AnonymousAuthenticationToken))
             return "main";
 
-        // if it is not authenticated, then go to the index...
-        // other things ...
         return "redirect:/login";
     }
 
@@ -63,12 +61,6 @@ public class MainPageController {
 
         return "teachersAndSubjects";
     }
-
-//    @RequestMapping("survey")
-//    public String goToSurveyPage(){
-//        return "survey";
-//    }
-
 
     @GetMapping("/showSurvey/{id}")
     public String getSurveyById(@PathVariable(value = "id") Integer id, Model model, Principal principal){
@@ -91,6 +83,21 @@ public class MainPageController {
     public String submitSurvey(ArrayList<Results> results){
         System.out.println("Value: " + results);
         return "redirect:mainPage";
+    }
+
+    @GetMapping("/complaint")
+    public String showComplaintPage() {
+        return "complaints";
+    }
+
+    @PostMapping("/complaint")
+    public String processComplaint(@ModelAttribute("text") String text, Principal principal, Model model) throws InterruptedException, IOException, ClassNotFoundException {
+        User user = userRepository.getUserByUsername(principal.getName());
+        Client clientSocket = new Client();
+        String responseMessage = clientSocket.processComplaintAndGetResponse(text);
+        model.addAttribute("user", user);
+        model.addAttribute("message", responseMessage);
+        return "complaints";
     }
 }
 
