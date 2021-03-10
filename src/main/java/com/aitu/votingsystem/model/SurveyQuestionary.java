@@ -1,7 +1,6 @@
 package com.aitu.votingsystem.model;
 
 import javax.persistence.*;
-import java.util.Optional;
 
 @Entity
 @Table(name = "survey_questionary")

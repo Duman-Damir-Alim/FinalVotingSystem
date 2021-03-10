@@ -1,12 +1,18 @@
 package com.aitu.votingsystem.controller;
 
-import com.aitu.votingsystem.model.*;
+import com.aitu.votingsystem.model.AnswerOptions;
+import com.aitu.votingsystem.model.Questionary;
+import com.aitu.votingsystem.model.Survey;
+import com.aitu.votingsystem.model.SurveyQuestionary;
 import com.aitu.votingsystem.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 

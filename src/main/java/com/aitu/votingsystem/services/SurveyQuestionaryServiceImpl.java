@@ -13,6 +13,7 @@ import java.util.List;
 public class SurveyQuestionaryServiceImpl implements SurveyQuestionaryService {
     @Autowired
     private SurveyQuestionaryRepository surveyQuestionaryRepository;
+
     @Override
     public List<SurveyQuestionary> getAllSurveyQuestionary(int id) {
         return surveyQuestionaryRepository.getAllBySurveyId(id);

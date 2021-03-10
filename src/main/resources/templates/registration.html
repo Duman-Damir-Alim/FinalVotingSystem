@@ -30,7 +30,7 @@
     </style>
 </head>
 <body>
-<head th:replace="navbar :: navbar" />
+<head th:replace="navbar :: navbar"/>
 <div class="container mt-4">
     <div class="d-flex justify-content-center">
         <div class="card px-5 pt-4 pb-4 m-4" style="width: 500px">
@@ -44,11 +44,13 @@
                 <div class="form-group row">
                     <div class="col-6">
                         <label for="floatingInput1">First Name</label>
-                        <input type="text" th:field="*{firstName}" class="form-control" id="floatingInput1" placeholder="Alex" required="true">
+                        <input type="text" th:field="*{firstName}" class="form-control" id="floatingInput1"
+                               placeholder="Alex" required="true">
                     </div>
                     <div class="col-6">
                         <label for="floatingInput2">Last Name</label>
-                        <input type="text" th:field="*{lastName}" class="form-control" id="floatingInput2" placeholder="Bell" required="true">
+                        <input type="text" th:field="*{lastName}" class="form-control" id="floatingInput2"
+                               placeholder="Bell" required="true">
                     </div>
                 </div>
                 <div class="form-group row">
@@ -62,7 +64,8 @@
                     </div>
                     <div class="col-6">
                         <label for="age">Your Age</label>
-                        <input type="number" th:field="*{age}" class="form-control"  id="age" placeholder="8+" required="true">
+                        <input type="number" th:field="*{age}" class="form-control" id="age" placeholder="8+"
+                               required="true">
                     </div>
                 </div>
                 <div class="form-group">
