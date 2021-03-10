@@ -39,10 +39,6 @@ public class MainPageController {
     @Autowired
     private UserRepository userRepository;
 
-    @RequestMapping("mainPage")
-    public String goToMainPage(){
-        return "mainPage";
-    }
 
     @GetMapping("/")
     public String index(Model model) {
