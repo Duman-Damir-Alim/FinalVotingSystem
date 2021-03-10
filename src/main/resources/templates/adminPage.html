@@ -46,7 +46,7 @@
 <h1>Add Question to Survey</h1>
 <form th:action="@{/admin/addQuestionAndAnswerOptionsToSurvey}" method="post">
     <div th:if="${add_question_message != null}" class="m-3">
-        <p class="text-success">[[${message}]]</p>
+        <p class="text-success">[[${add_question_message}]]</p>
     </div>
     <div class="form-group">
         <label>Survey id</label>
@@ -79,10 +79,39 @@
     <button type="submit" class="btn btn-primary">Add</button>
 </form>
 
+<h1>Update Question</h1>
+<form th:action="@{/admin/updateQuestion}" method="post">
+    <div th:if="${update_question_message != null}" class="m-3">
+        <p class="text-success">[[${update_question_message}]]</p>
+    </div>
+    <div class="form-group">
+        <label>Question id</label>
+        <input type="number" class="form-control" name="question_id" placeholder="Enter question id">
+    </div>
+    <div class="form-group">
+        <label>New Question Text</label>
+        <input type="text" class="form-control" name="question" placeholder="Enter question">
+    </div>
+    <button type="submit" class="btn btn-primary">Delete</button>
+</form>
+
+<h1>Delete Question</h1>
+<p>(Deletes answer options and question in survey</p>
+<form th:action="@{/admin/deleteQuestion}" method="post">
+    <div th:if="${delete_question_message != null}" class="m-3">
+        <p class="text-success">[[${delete_question_message}]]</p>
+    </div>
+    <div class="form-group">
+        <label>Question id</label>
+        <input type="number" class="form-control" name="question_id" placeholder="Enter question id">
+    </div>
+    <button type="submit" class="btn btn-primary">Delete</button>
+</form>
+
 <h1>Update Answers in Question</h1>
 <form th:action="@{/admin/updateAnswersInQuestion}" method="post">
-    <div th:if="${update_question_message != null}" class="m-3">
-        <p class="text-success">[[${message}]]</p>
+    <div th:if="${update_answers_message != null}" class="m-3">
+        <p class="text-success">[[${update_answers_message}]]</p>
     </div>
     <div class="form-group">
         <label>Question id</label>

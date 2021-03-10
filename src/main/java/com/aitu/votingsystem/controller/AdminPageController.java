@@ -12,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/admin")
@@ -75,8 +72,32 @@ public class AdminPageController {
         answerOptionsRepository.save(answerOption);
     }
 
+    @PostMapping("/deleteQuestion")
+    public String deleteQuestion(
+            @ModelAttribute("question_id") int question_id,
+            Model model) {
+        Questionary questionary = questionaryRepository.getOne(question_id);
+        questionaryRepository.delete(questionary);
+
+        model.addAttribute("delete_question_message", "successfully deleted");
+        return "adminPage";
+    }
+
+    @PostMapping("/updateQuestion")
+    public String updateQuestion(
+            @ModelAttribute("question_id") int questionId,
+            @ModelAttribute("question") String question,
+            Model model
+    ) {
+        Questionary questionary = questionaryRepository.getOne(questionId);
+        questionary.setQuestion(question);
+        questionaryRepository.save(questionary);
+        model.addAttribute("update_question_message", "updated successfully");
+        return "adminPage";
+    }
+
     @PostMapping("/updateAnswersInQuestion")
-    @Transactional //transactional allows to make delete and update operations
+    @Transactional //transactional allows to make custom delete and update operations
     public String updateAnswersInQuestion(
             @ModelAttribute("question_id") int question_id,
             @ModelAttribute("option1") String option1,
@@ -94,8 +115,7 @@ public class AdminPageController {
         saveAnswerOption(questionary, option4);
         saveAnswerOption(questionary, option5);
 
-        model.addAttribute("update_question_message", "updated successfully");
+        model.addAttribute("update_answers_message", "updated successfully");
         return "adminPage";
     }
-
 }
